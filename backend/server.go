@@ -12,6 +12,7 @@ import (
     "github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 
+    "github.com/enoperm/internet-services-2020/middleware"
     api "github.com/enoperm/internet-services-2020/api"
     appdb "github.com/enoperm/internet-services-2020/db"
 )
@@ -49,11 +50,19 @@ func configureDb() *appdb.ApplicationDatabase {
 }
 
 func configureRouter(r *mux.Router, db *appdb.ApplicationDatabase) {
+	secret := []byte("very-secret-session-key-we-whould-take-this-from-config-or-env") // TODO FIXME
+	session := middleware.NewSession(db, secret)
+
+	r.Use(session.Middleware)
+
 	{
 		sr := r.PathPrefix("/register").Subrouter()
 		api.NewRegisterApi(sr, db)
 	}
-    r.PathPrefix("/session").Handler(&api.Todo{Name: "session"})
+	{
+		sr := r.PathPrefix("/session").Subrouter()
+		api.NewSessionApi(sr, db, db, secret)
+	}
     r.PathPrefix("/profile").Handler(&api.Todo{Name: "profile"})
     r.PathPrefix("/savings").Handler(&api.Todo{Name: "savings"})
     r.PathPrefix("/rankings").Handler(&api.Todo{Name: "rankings"})

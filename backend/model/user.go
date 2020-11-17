@@ -61,14 +61,17 @@ func NewPassword(value []byte, salt []byte) (*Password, error) {
 }
 
 type User struct {
-	Name string
-	Password *Password
+	Id int64 `json:"-"`
+	Name string `json:"name"`
+	Password *Password `json:"-"`
 }
 
 
 type Password struct {
 	Hash [HASH_LEN]byte
 	Salt [SALT_LEN]byte
+
+	_ struct{} `json:"-"`
 }
 
 func (p Password) Check(v []byte) error {
@@ -76,7 +79,6 @@ func (p Password) Check(v []byte) error {
 
 	hashedInput, err := NewPassword(v, p.Salt[:])
 	if err != nil {
-		//logger.Println(err)
 		return result
 	}
 

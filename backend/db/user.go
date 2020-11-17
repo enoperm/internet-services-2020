@@ -33,12 +33,14 @@ func (db ApplicationDatabase) InitializeUserSchema() error {
 
 
 func (db ApplicationDatabase) FetchUser(username string) (model.User, error) {
-    row := db.Db.QueryRow(`SELECT name, pwsalt, pwhash FROM users WHERE name = ?`, username)
+    row := db.Db.QueryRow(`SELECT id, name, pwsalt, pwhash FROM users WHERE name = ?`, username)
     user := model.User{
         Password: &model.Password{},
     }
 
-    err := row.Scan(&user.Name, &user.Password.Salt, &user.Password.Hash)
+	var salt, hash []byte
+
+	err := row.Scan(&user.Id, &user.Name, &salt, &hash)
     switch {
     case err == sql.ErrNoRows:
         return user, err
@@ -48,6 +50,8 @@ func (db ApplicationDatabase) FetchUser(username string) (model.User, error) {
         return user, err
     }
 
+	copy(user.Password.Salt[:], salt)
+	copy(user.Password.Hash[:], hash)
     return user, nil
 }
 
@@ -57,9 +61,11 @@ func (db ApplicationDatabase) InsertUser(user model.User) error {
         INTO users (name, pwsalt, pwhash)
         VALUES (?, ?, ?)
     `, user.Name, user.Password.Salt[:], user.Password.Hash[:])
-    switch {
-    case err.(sqlite.Error).Code == sqlite.ErrConstraint:
-        return model.ErrRegisterUsernameUnavailable
+    switch err.(type) {
+	case sqlite.Error:
+		if err.(sqlite.Error).Code == sqlite.ErrConstraint {
+			return model.ErrRegisterUsernameUnavailable
+		}
     default:
     }
 

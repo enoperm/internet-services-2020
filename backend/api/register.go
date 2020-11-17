@@ -1,4 +1,4 @@
-package api
+package api // TODO: Move each API implementation into its own package
 
 // TODO: Split file
 import (

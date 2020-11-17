@@ -11,6 +11,8 @@ var (
 	_ = logger
 )
 
+const ISO8601 = "2006-01-02 15:04:05"
+
 func init() {
 	logger = log.New(os.Stdout, "db: ", log.LstdFlags | log.LUTC | log.Lmsgprefix)
 }
