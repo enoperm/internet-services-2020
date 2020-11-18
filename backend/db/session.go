@@ -1,14 +1,14 @@
 package db
 
 import (
+	"database/sql"
+	"github.com/enoperm/internet-services-2020/model"
 	"time"
-    "database/sql"
-    "github.com/enoperm/internet-services-2020/model"
 )
 
 // TODO: Interface is missing Context versions of the API
 type SessionDatabase interface {
-    InitializeSessionSchema() error
+	InitializeSessionSchema() error
 
 	InsertSession(sess model.Session) (*model.Session, error)
 	FetchSession(sid int64) (*model.Session, error)
@@ -16,10 +16,11 @@ type SessionDatabase interface {
 
 	TouchSession(sid int64) error
 }
+
 var _ SessionDatabase = &ApplicationDatabase{}
 
 func (db ApplicationDatabase) InitializeSessionSchema() error {
-    _, err := db.Db.Exec(`
+	_, err := db.Db.Exec(`
         CREATE TABLE
         IF NOT EXISTS
         sessions (
@@ -33,38 +34,41 @@ func (db ApplicationDatabase) InitializeSessionSchema() error {
         );
     `)
 	logger.Println("sessions/init-schema:", err)
-    return err
+	return err
 }
-
 
 func (db ApplicationDatabase) FetchSession(sid int64) (*model.Session, error) {
 	row := db.Db.QueryRow(`SELECT user_id, hmac, created_at, last_seen FROM sessions WHERE id = ?`, sid)
-    sess := model.Session{
+	sess := model.Session{
 		SessionID: sid,
-    }
+	}
 	var cat, ls string
-    err := row.Scan(&sess.UserID, &sess.Mac, &cat, &ls)
+	err := row.Scan(&sess.UserID, &sess.Mac, &cat, &ls)
 
-    switch {
-    case err == sql.ErrNoRows:
-        return nil, err
+	switch {
+	case err == sql.ErrNoRows:
+		return nil, err
 
-    case err != nil:
-        logger.Printf("sessions/fetch: sid(%v): %s", sid, err)
-        return nil, err
-    }
+	case err != nil:
+		logger.Printf("sessions/fetch: sid(%v): %s", sid, err)
+		return nil, err
+	}
 
 	sess.CreatedAt, err = time.Parse(ISO8601, cat)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 
 	sess.LastSeen, err = time.Parse(ISO8601, ls)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 
-    return &sess, nil
+	return &sess, nil
 }
 
 func (db ApplicationDatabase) InsertSession(sess model.Session) (*model.Session, error) {
-    res, err := db.Db.Exec(`
+	res, err := db.Db.Exec(`
         INSERT OR FAIL
         INTO sessions (user_id, hmac, created_at, last_seen)
         VALUES (?, ?, datetime(), datetime())
@@ -74,7 +78,7 @@ func (db ApplicationDatabase) InsertSession(sess model.Session) (*model.Session,
 		sess.SessionID, _ = res.LastInsertId()
 	}
 
-    return &sess, err
+	return &sess, err
 }
 
 func (db ApplicationDatabase) RemoveSession(sid int64) error {

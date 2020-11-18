@@ -1,16 +1,16 @@
 package api
 
 import (
-    "log"
-    "net/http"
+	"log"
+	"net/http"
 )
 
 type Todo struct {
-    Name string
+	Name string
 }
 
 var _ http.Handler = &Todo{""}
 
 func (todo *Todo) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
-    log.Printf("TODO: %s -> %s", todo.Name, req.URL.EscapedPath())
+	log.Printf("TODO: %s -> %s", todo.Name, req.URL.EscapedPath())
 }

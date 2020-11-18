@@ -1,26 +1,25 @@
 package model
 
 import (
-    "crypto/rand"
-    "crypto/subtle"
-    "errors"
+	"crypto/rand"
+	"crypto/subtle"
+	"errors"
 
-    "golang.org/x/crypto/scrypt"
+	"golang.org/x/crypto/scrypt"
 )
 
 // TODO: Move errors and pw related stuff.
 var (
-	ErrRegisterOk = errors.New("success")
+	ErrRegisterOk                  = errors.New("success")
 	ErrRegisterUsernameUnavailable = errors.New("requested username is not available")
-	ErrRegisterInvalidUsername = errors.New("username must not be empty and may only consists of printable ASCII characters")
-	ErrRegisterInvalidPassword = errors.New("password must be at least <X> characters long")
+	ErrRegisterInvalidUsername     = errors.New("username must not be empty and may only consists of printable ASCII characters")
+	ErrRegisterInvalidPassword     = errors.New("password must be at least <X> characters long")
 )
 
 var (
-	ErrAuthenticationOk = errors.New("successful login")
+	ErrAuthenticationOk   = errors.New("successful login")
 	ErrAuthenticationFail = errors.New("invalid username or password")
 )
-
 
 const (
 	HASH_LEN = 32
@@ -61,11 +60,10 @@ func NewPassword(value []byte, salt []byte) (*Password, error) {
 }
 
 type User struct {
-	Id int64 `json:"-"`
-	Name string `json:"name"`
+	Id       int64     `json:"-"`
+	Name     string    `json:"name"`
 	Password *Password `json:"-"`
 }
-
 
 type Password struct {
 	Hash [HASH_LEN]byte
@@ -87,4 +85,3 @@ func (p Password) Check(v []byte) error {
 	}
 	return result
 }
-

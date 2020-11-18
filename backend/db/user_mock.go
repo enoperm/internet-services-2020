@@ -1,15 +1,15 @@
 package db
 
 import (
-    "fmt"
-    "sync"
+	"fmt"
+	"sync"
 
-    "github.com/enoperm/internet-services-2020/model"
+	"github.com/enoperm/internet-services-2020/model"
 )
 
 type MockUserDB struct {
 	users map[string]model.User
-	mut sync.RWMutex
+	mut   sync.RWMutex
 }
 
 func (db *MockUserDB) FetchUser(username string) (model.User, error) {
@@ -17,7 +17,9 @@ func (db *MockUserDB) FetchUser(username string) (model.User, error) {
 	defer db.mut.RUnlock()
 
 	value, ok := db.users[username]
-	if !ok { return model.User{}, fmt.Errorf("could not find user by given name") }
+	if !ok {
+		return model.User{}, fmt.Errorf("could not find user by given name")
+	}
 	return value, nil
 }
 

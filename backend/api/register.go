@@ -2,18 +2,18 @@ package api // TODO: Move each API implementation into its own package
 
 // TODO: Split file
 import (
-    "encoding/json"
-    "io/ioutil"
-    "log"
-    "net/http"
-    "os"
-    "strings"
-    "unicode"
+	"encoding/json"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"os"
+	"strings"
+	"unicode"
 
-    "github.com/gorilla/mux"
+	"github.com/gorilla/mux"
 
-    "github.com/enoperm/internet-services-2020/db"
-    "github.com/enoperm/internet-services-2020/model"
+	"github.com/enoperm/internet-services-2020/db"
+	"github.com/enoperm/internet-services-2020/model"
 )
 
 type RegisterArguments struct {
@@ -25,6 +25,7 @@ type Register struct {
 	UserDB db.UserDatabase
 	*mux.Router
 }
+
 var _ http.Handler = &Register{}
 
 var (
@@ -32,7 +33,7 @@ var (
 )
 
 func init() {
-	logger = log.New(os.Stdout, "/register: ", log.LstdFlags | log.LUTC | log.Lmsgprefix)
+	logger = log.New(os.Stdout, "/register: ", log.LstdFlags|log.LUTC|log.Lmsgprefix)
 }
 
 func NewRegisterApi(router *mux.Router, udb db.UserDatabase) *Register {
@@ -51,7 +52,8 @@ func (regApi *Register) registerUser(rw http.ResponseWriter, req *http.Request) 
 	fail := func(err error) {
 		logger.Println(err)
 		switch err {
-		case model.ErrRegisterInvalidUsername: fallthrough
+		case model.ErrRegisterInvalidUsername:
+			fallthrough
 		case model.ErrRegisterInvalidPassword:
 			rw.WriteHeader(http.StatusBadRequest)
 			rw.Write([]byte(err.Error()))
@@ -73,15 +75,22 @@ func (regApi *Register) registerUser(rw http.ResponseWriter, req *http.Request) 
 	}
 
 	readBuffer, err := ioutil.ReadAll(req.Body)
-	if err != nil { fail(err); return }
+	if err != nil {
+		fail(err)
+		return
+	}
 
 	err = json.Unmarshal(readBuffer, &args)
-	if err != nil { fail(err); return }
+	if err != nil {
+		fail(err)
+		return
+	}
 
 	filteredUsername := strings.Map(validUsernameChar, args.Username)
 
 	switch {
-	case len(args.Username) < 1: fallthrough
+	case len(args.Username) < 1:
+		fallthrough
 	case len(args.Username) != len(filteredUsername):
 		fail(model.ErrRegisterInvalidUsername)
 		return
@@ -92,16 +101,25 @@ func (regApi *Register) registerUser(rw http.ResponseWriter, req *http.Request) 
 	}
 
 	salt, err := model.GenerateRandomSalt()
-	if err != nil { fail(err); return }
+	if err != nil {
+		fail(err)
+		return
+	}
 
 	password, err := model.NewPassword([]byte(args.Password), salt[:])
-	if err != nil { fail(err); return }
+	if err != nil {
+		fail(err)
+		return
+	}
 
 	err = regApi.UserDB.InsertUser(model.User{
-		Name: args.Username,
+		Name:     args.Username,
 		Password: password,
 	})
-	if err != nil { fail(err); return }
+	if err != nil {
+		fail(err)
+		return
+	}
 
 	logger.Println("succ ->", args.Username)
 	rw.WriteHeader(http.StatusCreated)
