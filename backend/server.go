@@ -42,7 +42,7 @@ func main() {
 }
 
 func configureDb() *appdb.ApplicationDatabase {
-	db, err := sql.Open("sqlite3", "db.sqlite3")
+	db, err := sql.Open("sqlite3", "./data/db.sqlite3")
 	if err != nil {
 		log.Fatalln("configure-db:", err)
 	}

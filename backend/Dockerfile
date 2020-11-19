@@ -19,5 +19,8 @@ FROM alpine:3.12
 
 COPY --from=builder /src/backend /backend
 
+RUN mkdir /data && chown -R nobody:nobody /data
+VOLUME /data
 USER nobody:nobody
+
 ENTRYPOINT ["/backend"]

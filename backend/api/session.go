@@ -116,8 +116,6 @@ func (sessApi *Session) TerminateSession(rw http.ResponseWriter, req *http.Reque
 	// TODO: Set "session-id" object through middleware, remove session from DB.
 	http.SetCookie(rw, &http.Cookie{
 		Name:  COOKIE_SESSION,
-		Value: "",
-
 		MaxAge: -1,
 	})
 	rw.WriteHeader(http.StatusNoContent)
