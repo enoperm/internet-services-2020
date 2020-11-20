@@ -82,7 +82,13 @@ func (db ApplicationDatabase) InsertSession(sess model.Session) (*model.Session,
 }
 
 func (db ApplicationDatabase) RemoveSession(sid int64) error {
-	return nil
+	_, err := db.Db.Exec(`
+        DELETE
+        FROM sessions
+        WHERE id = ?
+    `, sid)
+
+	return err
 }
 
 // TODO: expose this function to session middleware.

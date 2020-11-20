@@ -28,7 +28,10 @@ type Session struct {
 
 var _ http.Handler = &Session{}
 
+type contextKey string
+
 const COOKIE_SESSION = "session"
+const CONTEXT_SESSION = contextKey("session")
 
 func NewSessionApi(router *mux.Router, udb db.UserDatabase, sdb db.SessionDatabase, secret []byte) *Session {
 	udb.InitializeUserSchema()
@@ -42,7 +45,7 @@ func NewSessionApi(router *mux.Router, udb db.UserDatabase, sdb db.SessionDataba
 		Router: router,
 	}
 	r.HandleFunc("", r.OpenSession).Methods("POST")
-	r.HandleFunc("", r.OpenSession).Methods("DELETE")
+	r.HandleFunc("", r.TerminateSession).Methods("DELETE")
 	return &r
 }
 
@@ -113,9 +116,15 @@ func (sessApi *Session) OpenSession(rw http.ResponseWriter, req *http.Request) {
 }
 
 func (sessApi *Session) TerminateSession(rw http.ResponseWriter, req *http.Request) {
-	// TODO: Set "session-id" object through middleware, remove session from DB.
+	session, ok := req.Context().Value(CONTEXT_SESSION).(*model.Session)
+	if ok {
+		err := sessApi.SessionDB.RemoveSession(session.SessionID)
+		if err != nil {
+			logger.Println("terminate:", err)
+		}
+	}
 	http.SetCookie(rw, &http.Cookie{
-		Name:  COOKIE_SESSION,
+		Name:   COOKIE_SESSION,
 		MaxAge: -1,
 	})
 	rw.WriteHeader(http.StatusNoContent)

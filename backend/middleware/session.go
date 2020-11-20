@@ -18,10 +18,6 @@ var (
 	ErrMacMismatch = errors.New("hmac mismatch")
 )
 
-type contextKey string
-
-const CONTEXT_SESSION = contextKey("session")
-
 type Session struct {
 	SessionDB     db.SessionDatabase
 	sessionSecret []byte
@@ -43,7 +39,7 @@ func (sm *Session) Middleware(next http.Handler) http.Handler {
 			nextReq, err = sm.trySetSession(sessionCookie.Value, req)
 			log.Printf("middleware/session: %s", err)
 		}
-		log.Printf("middleware/session: context-v: %#v", nextReq.Context().Value(CONTEXT_SESSION))
+		log.Printf("middleware/session: context-v: %#v", nextReq.Context().Value(api.CONTEXT_SESSION))
 		next.ServeHTTP(rw, nextReq)
 	})
 }
@@ -66,7 +62,7 @@ func (sm *Session) trySetSession(b64Cookie string, req *http.Request) (*http.Req
 	}
 
 	if sess.ValidateMac(reqSess.Mac) {
-		ctx := context.WithValue(req.Context(), CONTEXT_SESSION, sess)
+		ctx := context.WithValue(req.Context(), api.CONTEXT_SESSION, sess)
 		return req.Clone(ctx), nil
 	}
 
