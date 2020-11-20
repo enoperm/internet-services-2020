@@ -1,16 +1,22 @@
 html,body{
-    background-image: url(/img/bg_1.jpg);;
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
     font-family: 'Numans', sans-serif;
     overflow-y: hidden;
-    }
+    background-color: #101010;
+}
+
+nav{
+    height: 70px;
+    text-align: center;
+    background-color: black;
+}
 
 h3{
     font-size: 60px;
     color: white;
-    text-align: center;
+    margin-left: 30px;
 }
 
 .container{
@@ -23,7 +29,8 @@ h3{
     margin-top: 210px;
     margin-bottom: auto;
     width: 400px;
-    background-color: rgba(0,0,0,0.5) !important;
+    background-color: #101010;
+    border: 2px solid white;
 }
 
 .card-header h3{

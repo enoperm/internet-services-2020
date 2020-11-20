@@ -1,0 +1,305 @@
+html,body{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #101010;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+h3{
+    font-size: 60px;
+    color: white;
+    text-align: center;
+}
+
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top: -55px;
+  left: 50px;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  color: tomato;
+}
+
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
+  margin-left: 1720px;
+}
+
+nav{
+    height: 70px;
+    background-color: black;
+}
+
+/*
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: white;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+  background-color: white;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  
+  background: black;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop9 flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  
+  margin-top: 0px;
+  padding-top: 0px;
+
+  margin-left: 1580px;
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+  text-align: center;
+  font-style: bold;
+  color:white;
+}
+
+#first-li{
+    margin-top: 40px;
+}
+
+#second-li{
+    margin-top: 20px;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+}
+
+span{
+    margin-left: 1720px;
+}
+
+h5{
+    color: white;
+}
+
+h6{
+    color: white;
+    font-size: 20px;
+}
+
+.edit-div{
+    border: 2px solid white;
+    width: 800px;
+    height: 830px;
+    margin-top: 20px;
+    margin-left: 560px;
+}
+
+.edit-div h5{
+    padding: 10px;
+    border-bottom: 2px solid white;
+    font-size: 30px;
+  }
+
+.username-div{
+  display: flex;
+  border-bottom: 2px solid white;
+}
+
+.username-header{
+  width: 100px;
+}
+
+.username-header h6{
+  margin-left: 30px;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.username{
+  width: 400px;
+}
+
+.username h6{
+  margin-left: 100px;
+  margin-top: 10px;
+}
+
+.btn {
+  border: none;
+  background-color: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 200px;
+  width: 60px;
+  height: 30px;
+}
+
+.info {color: dodgerblue;}
+
+.edit-username{
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.password-div{
+  display: flex;
+  border-bottom: 2px solid white;
+}
+
+.password-header{
+  width: 100px;
+}
+
+.password-header h6{
+  margin-left: 30px;
+  font-style: italic;
+  margin-top: 18px;
+}
+
+.password{
+  width: 400px;
+}
+
+.password h6{
+  margin-left: 100px;
+  margin-top: 18px;
+}
+
+.edit-password{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.login_btn{
+    color: black;
+    background-color: #FFC312;
+    width: 200px;
+    height: 50px;
+    margin-right: 0px;
+    margin-top: 5px;
+}
+
+.login_btn:hover{
+    color: black;
+    background-color: white;
+}
+
+.card{
+    background-color:  #101010;
+    height: 500px;
+    width: 100%;
+}
+
+.card-header{
+    padding: 0px;
+}
+
+h2{
+    color: white;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Since your last cigarette</title>
+
+    	<link rel="shortcut icon" type="image/png" href="favicon.ico"/>
+	
+		<!--Bootsrap 4 CDN-->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		
+		<!--Fontawesome CDN-->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+		<!--Custom styles-->
+		<link rel="stylesheet" href="css/edit_profile.css" />
+	</head>
+
+	<body>
+		<header>
+			<nav role="navigation">
+                <h3>Since your last cigarette</h3>
+                
+                <div id="menuToggle">
+                    <!--
+                    A fake / hidden checkbox is used as click reciever,
+                    so you can use the :checked selector on it.
+                    -->
+                    <input type="checkbox" />
+                    
+                    <!--
+                    Some spans to act as a hamburger.
+                    
+                    They are acting like a real hamburger,
+                    not that McDonalds stuff.
+                    -->
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    
+                    <!--
+                    Too bad the menu has to be inside of the button
+                    but hey, it's pure CSS magic.
+                    -->
+                    <ul id="menu">
+                      <a href="/edit_profile.html"><li id="first-li">Edit profile</li></a>
+                      <a href="/index.html"><li id="second-li">Logout</li></a>
+                    </ul>
+                  </div>
+			</nav>
+        </header>
+
+        <div class="edit-div">
+            <h5>Account settings:</h5>
+            <form action="/main.html" method="post">
+                <div class="username-div">
+                    <div class="username-header">
+                        <h6>Username</h6>
+                    </div>
+                    <div class="username">
+                        <h6>JuhaszPeter</h6>
+                    </div>
+                    <div class="edit-username">
+                        <button class="btn info">Edit</button>
+                    </div>
+                </div>
+
+                <div class="password-div">
+                    <div class="password-header">
+                        <h6>Password</h6>
+                    </div>
+                    <div class="password">
+                        <h6>******************</h6>
+                    </div>
+                    <div class="edit-password">
+                        <button class="btn info">Edit</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Smoking habits</h5>
+                        </div>
+                        <div class="card-body">
+                            <h2>When did you smoke your last cigarette?</h2>
+                            <div class="input-group form-group">
+                                <input type="date" class="form-control" placeholder="yyyy-mm-dd">
+                            </div>
+                            
+                            <h2>How many sticks did you smoke a day?</h2>
+                            <div class="input-group form-group">
+                                <input type="number" class="form-control" placeholder="piece(s)">
+                            </div>
+                            
+                            <h2>How many cigarettes are in a pack?</h2>
+                            <div class="input-group form-group">
+                                <input type="number" min="10" max="20" class="form-control" placeholder="piece(s)">
+                            </div>
+                            
+                            <h2>How much does your box of cigarettes cost?</h2>
+                            <div class="input-group form-group">
+                                <input type="number" class="form-control" placeholder="Forint">
+                            </div>
+
+                            <h2>Which year did you start smoking?</h2>
+                            <div class="input-group form-group">
+                                <input type="number" min="1920" max="2020" step="1" class="form-control" placeholder="year">
+                            </div>
+        
+                            <div class="form-group">
+                                <input type="submit" id="finish_button" value="Save your profile" class="btn float-right login_btn">
+                            </div>
+           
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha512-0z9zJIjxQaDVzlysxlaqkZ8L9jh8jZ2d54F3Dn36Y0a8C6eI/RFOME/tLCFJ42hfOxdclfa29lPSNCmX5ekxnw==" crossorigin="anonymous"></script>
+    </body>
+</html>
