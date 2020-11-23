@@ -1,14 +1,14 @@
 var check = function() {
     if (document.getElementById('mypassword').value == document.getElementById('mypassword_again').value) {
-      document.getElementById('message').style.color = 'green';
-      document.getElementById('message').innerHTML = 'Password is matching';
-      document.getElementById("next_button").disabled = false;
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('message').innerHTML = 'Password is matching';
+        document.getElementById("next_button").disabled = false;
     } else {
-      document.getElementById('message').style.color = 'red';
-      document.getElementById('message').innerHTML = 'Password is not matching';
-      document.getElementById("next_button").disabled = true;
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerHTML = 'Password is not matching';
+        document.getElementById("next_button").disabled = true;
     }
-  }
+}
 
 function write_to_console() {
     var usernameValue = document.getElementById("uniqueusername").value;
@@ -17,3 +17,22 @@ function write_to_console() {
   
     console.log("Username: ", usernameValue, "\n" ,  "Password: ", passwordValue, "\n", "Password again: ", password_againValue);   
 }
+
+$( 'form' ).submit(function( event ) {
+    event.preventDefault();
+
+    var form = $( this );
+    var formData = {"username":$('#uniqueusername').val(),"password":$('#mypassword').val()};
+    formData = JSON.stringify(formData);
+    console.log(formData);
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/register',
+        data: formData,
+        success: function( resp ) {
+            console.log( resp );
+            window.location.href = '/';
+        }
+    });
+});
