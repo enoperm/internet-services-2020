@@ -10,12 +10,13 @@ html,body{
 nav{
     height: 70px;
     text-align: center;
+    background-color: black;
 }
 
 h3{
     font-size: 60px;
     color: white;
-    text-align: center;
+    margin-left: 30px;
 }
 
 .container{

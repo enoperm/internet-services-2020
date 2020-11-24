@@ -54,6 +54,7 @@
         <div class="edit-div">
             <h5>Account settings:</h5>
             <form action="/main.html" method="post">
+                
                 <div class="edit-username">
                     <label for="usname" id="usnamel">Username:</label>
                     <input type="text" id="unamei" name="fname" disabled>
@@ -67,32 +68,33 @@
                 <div>
                     <div class="card">
                         <div class="card-header">
-                            <h5>Smoking habits</h5>
+                            <div id="smoke-header"><h5>Smoking habits</h5></div>
+                            <div id="smoke-button"><button onclick="resetStats()">Reset my stats</button></div>
                         </div>
                         <div class="card-body">
                             <h2>When did you smoke your last cigarette?</h2>
                             <div class="input-group form-group">
-                                <input type="date" class="form-control" placeholder="yyyy-mm-dd">
+                                <input type="date" id="date-time" class="form-control" placeholder="yyyy-mm-dd">
                             </div>
                             
                             <h2>How many sticks did you smoke a day?</h2>
                             <div class="input-group form-group">
-                                <input type="number" class="form-control" placeholder="piece(s)">
+                                <input type="number" id="perday" min="1" max="100" class="form-control" placeholder="piece(s)">
                             </div>
                             
                             <h2>How many cigarettes are in a pack?</h2>
                             <div class="input-group form-group">
-                                <input type="number" min="10" max="20" class="form-control" placeholder="piece(s)">
+                                <input type="number" id="pack" min="10" max="20" class="form-control" placeholder="piece(s)">
                             </div>
                             
                             <h2>How much does your box of cigarettes cost?</h2>
                             <div class="input-group form-group">
-                                <input type="number" class="form-control" placeholder="Forint">
+                                <input type="number" id="cost" class="form-control" placeholder="Forint">
                             </div>
 
                             <h2>Which year did you start smoking?</h2>
                             <div class="input-group form-group">
-                                <input type="number" min="1920" max="2020" step="1" class="form-control" placeholder="year">
+                                <input type="number" id="year" min="1920" max="2020" step="1" class="form-control" placeholder="year">
                             </div>
         
                             <div class="form-group">
@@ -102,6 +104,7 @@
                         </div>
                     </div>
                 </div>
+
             </form>
         </div>
 
