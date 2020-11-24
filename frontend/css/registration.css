@@ -105,3 +105,27 @@ input:focus{
     display: flex;
     width: 100%;
 }
+
+@media (max-width: 992px) {
+    nav{
+        height: 50px;
+    }
+
+    h3{
+        text-align: unset;
+        margin-left: 20px;
+        font-size: 35px;
+    }
+
+    body{
+        overflow-y: scroll;
+    }
+
+    .card{
+        margin-top: 40px;
+    }
+
+    .card-header h3{
+        font-size: 35px;
+    }
+}

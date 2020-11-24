@@ -75,3 +75,31 @@ input:focus{
 .card-footer a{
     margin-left: 10px;
 }
+
+@media (max-width: 992px) {
+    nav{
+        height: 50px;
+    }
+
+    body{
+        overflow-y: scroll;
+    }
+  
+    h3{
+        text-align: unset;
+        margin-left: 20px;
+        font-size: 35px;
+    }
+
+    .card{
+        margin-top: 20px;
+    }
+
+    .card-header h3{
+        font-size: 35px;
+    }
+
+    .foot{
+        font-size: 20px;
+    }
+}

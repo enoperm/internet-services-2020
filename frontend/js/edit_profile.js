@@ -48,7 +48,7 @@ $( 'form' ).submit(function( event ) {
             data: formData,
             success: function( resp ) {
                 console.log( resp );
-                window.location.href = '/main.html';
+                window.location.href = '/';
             }
         });
     }
