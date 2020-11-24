@@ -59,6 +59,12 @@ nav{
     background-color: black;
 }
 
+h3{
+    font-size: 60px;
+    color: white;
+    margin-left: 30px;
+}
+
 /*
  * Just a quick hamburger
  */
@@ -166,9 +172,59 @@ span{
     margin-left: 1720px;
 }
 
+.outside{
+    display: flex;
+}
+
+.stats{
+    border: 2px solid white;
+    height: 500px;
+    width: 900px;
+    margin-left: 35px;
+    margin-top: 70px;
+}
+
+h4{
+    font-size: 30px;
+    color: white;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+h5{
+    color: white;
+    font-size: 20px;
+    text-align: justify;
+    padding: 10px;
+}
+
+#first-h5{
+    margin-top: 10px;
+}
+
+.toplist{
+    border: 2px solid white;
+    height: 500px;
+    width: 900px;
+    margin-left: 50px;
+    margin-top: 70px;
+}
+
+.stat-header{
+    border-bottom: 2px solid white;
+}
+
+.toplist-header{
+    border-bottom: 2px solid white;
+}
+
 @media (max-width: 992px) {
     nav{
         height: 50px;
+    }
+
+    body{
+        overflow-y: scroll;
     }
   
     h3{
@@ -192,5 +248,21 @@ span{
     #menu{
       margin-left: 400px;
       transform: translate(200%, 0);
+    }
+
+    .outside{
+        display: block;
+    }
+    
+    .stats{
+        width: 600px;
+        height: 600px;
+        margin-top: 50px;
+    }
+
+    .toplist{
+        margin-left: 35px;
+        width: 600px;
+        height: 600px;
     }
   }

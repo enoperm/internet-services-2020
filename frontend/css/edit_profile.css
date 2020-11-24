@@ -11,10 +11,16 @@ body{
   overflow-y: scroll;
 }
 
+nav{
+  height: 70px;
+  background-color: black;
+}
+
 h3{
-    font-size: 60px;
-    color: white;
-    text-align: center;
+  font-size: 60px;
+  color: white;
+  text-align: center;
+  margin-left: 47px;
 }
 
 #menuToggle
@@ -60,11 +66,6 @@ h3{
   
   -webkit-touch-callout: none;
   margin-left: 1720px;
-}
-
-nav{
-    height: 70px;
-    background-color: black;
 }
 
 /*
@@ -414,5 +415,14 @@ h2{
     width: 252px;
     text-align: center;
     margin-left: 16px;
+  }
+
+  #smoke-button{
+    width: 50%;
+    margin-left: 190px;
+  }
+
+  .edit-div h5{
+    width: 650px;
   }
 }
