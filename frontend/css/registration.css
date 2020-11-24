@@ -87,3 +87,20 @@ input:focus{
     text-align: center;
     font-style: bold;
 }
+
+#error_message{
+    color: red;
+    font-size: 18px;
+    margin-top: 7px;
+    margin-left: 30px;
+    width: 50%;
+}
+
+.finish-button{
+    width: 50%;
+}
+
+#last-div{
+    display: flex;
+    width: 100%;
+}

@@ -4,8 +4,11 @@ html,body{
     background-color: #101010;
     height: 100%;
     font-family: 'Numans', sans-serif;
-    overflow-y: hidden;
     overflow-x: hidden;
+}
+
+body{
+  overflow-y: scroll;
 }
 
 h3{
@@ -194,8 +197,8 @@ h6{
 .edit-div{
     border: 2px solid white;
     width: 800px;
-    height: 830px;
-    margin-top: 20px;
+    height: 800px;
+    margin-top: 40px;
     margin-left: 560px;
 }
 
@@ -274,6 +277,7 @@ h6{
 .edit-password{
   margin-top: 10px;
   margin-bottom: 10px;
+  display: flex;
 }
 
 .login_btn{
@@ -294,6 +298,7 @@ h6{
     background-color:  #101010;
     height: 500px;
     width: 100%;
+    border-top: 2px solid white;
 }
 
 .card-header{
@@ -302,4 +307,96 @@ h6{
 
 h2{
     color: white;
+    font-size: 1.75rem;
+}
+
+.edit-username label{
+  font-size: 1rem;
+  margin-left: 5px;
+  color: white;
+}
+
+.edit-username input{
+  width: 200px;
+  height: 30px;
+  margin-left: 30px;
+  text-align: center;
+}
+
+.edit-password label{
+  font-size: 1rem;
+  margin-left: 5px;
+  color: white;
+}
+
+.edit-password input{
+  width: 200px;
+  height: 30px;
+  margin-left: 30px;
+  text-align: center;
+}
+
+#usnamel{
+  margin-top: 10px;
+  width: 100px;
+  margin-left: 20px;
+}
+
+#unamei{
+  margin-top: 10px;
+  width: 300px;
+  text-align: center;
+  margin-left: 16px;
+}
+
+#passl{
+  width: 50px;
+  margin-left: 20px;
+}
+
+#passi{
+  width: 300px;
+  text-align: center;
+  margin-left: 70px;
+}
+
+@media (max-width: 992px) {
+  nav{
+      height: 50px;
+  }
+
+  h3{
+      text-align: unset;
+      margin-left: 20px;
+      font-size: 35px;
+  }
+
+  span{
+    margin-left: 570px;
+  }
+
+  #menuToggle{
+    top: -37px;
+  }
+
+  #menuToggle input{
+    margin-left: 570px;
+  }
+  
+  #menu{
+    margin-left: 400px;
+    transform: translate(200%, 0);
+  }
+
+  .edit-div{
+    margin-left: 10px;
+    width: 650px;
+  }
+
+  #unamei{
+    margin-top: 10px;
+    width: 252px;
+    text-align: center;
+    margin-left: 16px;
+  }
 }
