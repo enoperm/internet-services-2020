@@ -63,7 +63,10 @@ func configureRouter(r *mux.Router, db *appdb.ApplicationDatabase) {
 		sr := r.PathPrefix("/session").Subrouter()
 		api.NewSessionApi(sr, db, db, secret)
 	}
-	r.PathPrefix("/profile").Handler(&api.Todo{Name: "profile"})
+	{
+		sr := r.PathPrefix("/profile").Subrouter()
+		api.NewProfileApi(sr, db, db)
+	}
 	r.PathPrefix("/savings").Handler(&api.Todo{Name: "savings"})
 	r.PathPrefix("/rankings").Handler(&api.Todo{Name: "rankings"})
 	r.PathPrefix("/motd").Handler(&api.Todo{Name: "motd"})
