@@ -178,10 +178,14 @@ span{
 
 .stats{
     border: 2px solid white;
-    height: 500px;
+    height: 700px;
     width: 900px;
     margin-left: 35px;
     margin-top: 70px;
+}
+
+.stats #time{
+    border-top: 0px;
 }
 
 h4{
@@ -216,6 +220,12 @@ h5{
 
 .toplist-header{
     border-bottom: 2px solid white;
+}
+
+.headers{
+    border-bottom: 2px solid white;
+    border-top: 2px solid white;
+    color: red;
 }
 
 @media (max-width: 992px) {
