@@ -36,8 +36,12 @@
                         <a href="/edit_profile.html">
                             <li id="first-li">Edit profile</li>
                         </a>
+                        <a href="/message.html">
+                            <li id="second-li">My messages</li>
+                        </a>
+
                         <a href="/index.html">
-                            <li id="second-li">Logout</li>
+                            <li id="third-li">Logout</li>
                         </a>
                     </ul>
                 </div>
@@ -46,18 +50,38 @@
         <div class="outside">
             <div class="stats">
                 <div class="stat-header">
-                    <h4>Your statistics:</h4>
+                    <h4>Your statistics</h4>
                 </div>
-                <h5 id="time" class="headers">Elapsed time:</h5>
-                <h5 class="contents" id="first-h5-box">It has been 1 year, 5 weeks, 2 days since you quit.</h5>
+
+                <h5 id="time-header" class="headers">Time elapsed:</h5>
+                <div class="value">
+                    <h5 class="begin">It has been</h5>
+                    <h5 id="time">1 year, 3 months, 12 days</h5>
+                    <h5 class="end">since you quit.</h5>
+                </div>
+
                 <h5 class="headers">Cigarettes you haven't smoked:</h5>
-                <h5 class="contents" id="second-h5-box">You haven't smoked 299 packs and 15 pieces, which means 5995 pieces.</h5>
+                <div class="value">
+                    <h5 class="begin">You haven't smoked</h5>
+                    <h5 id="count">299 packs and 15 pieces, which means 5995 pieces.</h5>
+                </div>
+                
                 <h5 class="headers">Saved money:</h5>
-                <h5 class="contents" id="third-h5-box">You have saved 426000 Forint by not smoking.</h5>
+                <div class="value">
+                    <h5 class="begin">You have saved</h5> 
+                    <h5 id="money">426000 Forint</h5>
+                    <h5 class="end">by not smoking.</h5>
+                </div>
+                
                 <h5 class="headers">Gave up after years:</h5>
-                <h5 class="contents" id="fourth-h5-box">Congratulations! Finally you gave up smoking after 6 years. You can be so proud of you!</h5>
+                <div class="value">
+                    <h5 class="begin">Congratulations! Finally you gave up smoking after</h5> 
+                    <h5 id="year">6 years.</h5>
+                    <h5 class="end">You can be so proud of you!</h5>
+                </div>
+                
                 <h5 class="headers">Health benefits:</h5>
-                <h5 class="contents" id="fifth-h5-box">Your heart rate and blood pressure dropped. The carbon monoxide level in your blood dropped to normal.
+                <h5 class="begin" id="health">Your heart rate and blood pressure dropped. The carbon monoxide level in your blood dropped to normal.
                     Your circulation improved and your lung function increased. Coughing and shortness of breath decreased. 
                     Tiny hair-like structures that move mucus out of the lungs (called cilia) started to regain normal function, 
                     increasing their ability to handle mucus, clean the lungs, and reduce the risk of infection.
@@ -66,7 +90,44 @@
 
             <div class="toplist">
                 <div class="toplist-header">
-                    <h4>Toplist:</h4>
+                    <h4>Toplist</h4>
+                </div>
+
+                <div class="buttons">
+                    <button id="time-button" onclick="getTime()">Time elapsed</button>
+                    <button id="pieces-button" onclick="getPieces()">Not smoked pieces</button>
+                    <button id="money-button" onclick="getMoney()">Saved money</button>
+                </div>
+
+                <div class="users">
+                    <div class="concrete-user">
+                        <div class="user-header"><h5>ID: Anonymous</h5></div>
+                        <div class="user-position"><h5>Position: 1</h5></div>
+                        <div class="user-content"><h5>Content: 1 year, 8 months, 12 days</h5></div>
+                    </div>
+
+                    <div class="concrete-user">
+                        <div class="user-header"><h5>ID: Anonymous</h5></div>
+                        <div class="user-position"><h5>Position: 2</h5></div>
+                        <div class="user-content"><h5>Content: 1 year, 5 months, 12 days</h5></div>
+                    </div>
+
+                    <div class="concrete-user">
+                        <div class="user-header"><h5>ID: You</h5></div>
+                        <div class="user-position"><h5>Position: 3</h5></div>
+                        <div class="user-content"><h5>Content: 1 year, 3 months, 12 days</h5></div>
+                    </div>
+
+                    <div class="concrete-user">
+                        <div class="user-header"><h5>ID: Anonymous</h5></div>
+                        <div class="user-position"><h5>Position: 4</h5></div>
+                        <div class="user-content"><h5>Content: 1 year, 2 months, 12 days</h5></div>
+                    </div>
+                </div>
+
+                <div class="top">
+                    <h5 class="begin">You are in the top</h5>
+                    <h5 id="top-content">75%</h5>
                 </div>
             </div>
 
