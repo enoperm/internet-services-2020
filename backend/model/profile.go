@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 type Profile struct {
 	LastSmoke string `json:"last_smoke"` // TODO
 	DailyAverage uint32 `json:"daily_average"`
@@ -9,6 +11,8 @@ type Profile struct {
 }
 
 func (p Profile) Validate() (errors []error) {
-	// TODO
+	_, err := time.Parse("2006-01-02", p.LastSmoke)
+	if err != nil { errors = append(errors, err) }
+
 	return
 }
