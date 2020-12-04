@@ -39,7 +39,7 @@ h3{
 
 .input-group-prepend span{
     width: 50px;
-    background-color: #FFC312;
+    background-color: rgb(223, 22, 22);
     color: black;
     border:0 !important;
 }
@@ -51,7 +51,7 @@ input:focus{
 
 .login_btn{
     color: black;
-    background-color: #FFC312;
+    background-color: rgb(223, 22, 22);
     width: 100px;
 }
 
