@@ -364,13 +364,22 @@ button{
     
     .stats{
         width: 600px;
-        height: 600px;
+        height: 750px;
         margin-top: 50px;
     }
 
     .toplist{
         margin-left: 35px;
         width: 600px;
-        height: 600px;
+        height: 700px;
+        margin-bottom: 30px;
+    }
+
+    button{
+        margin-left: 50px;
+    }
+
+    .top h5{
+        margin-left: 190px;
     }
   }
