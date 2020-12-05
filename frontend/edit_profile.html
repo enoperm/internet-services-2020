@@ -54,59 +54,60 @@
 
         <div class="edit-div">
             <h5>Account settings:</h5>
-            <form action="/main.html" method="post">
                 
-                <div class="edit-username">
-                    <label for="usname" id="usnamel">Username:</label>
-                    <input type="text" id="unamei" name="fname" disabled>
-                </div>
-                <div class="edit-password">
-                    <label for="password" id="passl">Password:</label>
-                    <input type="password" id="passi" name="pass" placeholder="***************" disabled>
-                    <button class="btn info" type="button" onclick="makePasswordEnable()">Edit</button>
-                </div>
+                <form>
+                    <div class="edit-username">
+                        <label for="usname" id="usnamel">Username:</label>
+                        <input type="text" id="unamei" name="fname" disabled>
+                    </div>
+                    <div class="edit-password">
+                        <label for="password" id="passl">Password:</label>
+                        <input type="password" id="passi" name="pass" placeholder="***************" disabled>
+                        <button class="btn info" type="button" onclick="makePasswordEnable()">Edit</button>
+                    </div>
+                </form>
 
-                <div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div id="smoke-header"><h5>Smoking habits</h5></div>
-                            <div id="smoke-button"><button onclick="resetStats()">Reset my stats</button></div>
-                        </div>
-                        <div class="card-body">
-                            <h2>When did you smoke your last cigarette?</h2>
-                            <div class="input-group form-group">
-                                <input type="date" id="date-time" class="form-control" placeholder="yyyy-mm-dd">
+                <form id="profile_form">
+                    <div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div id="smoke-header"><h5>Smoking habits</h5></div>
+                                <div id="smoke-button"><button type="button" onclick="resetStats()">Reset my stats</button></div>
                             </div>
-                            
-                            <h2>How many sticks did you smoke a day?</h2>
-                            <div class="input-group form-group">
-                                <input type="number" id="perday" min="1" max="100" class="form-control" placeholder="piece(s)">
-                            </div>
-                            
-                            <h2>How many cigarettes are in a pack?</h2>
-                            <div class="input-group form-group">
-                                <input type="number" id="pack" min="10" max="20" class="form-control" placeholder="piece(s)">
-                            </div>
-                            
-                            <h2>How much does your box of cigarettes cost?</h2>
-                            <div class="input-group form-group">
-                                <input type="number" id="cost" class="form-control" placeholder="Forint">
-                            </div>
+                            <div class="card-body">
+                                <h2>When did you smoke your last cigarette?</h2>
+                                <div class="input-group form-group">
+                                    <input type="text" id="date-time" class="form-control" placeholder="2019-08-24">
+                                </div>
 
-                            <h2>Which year did you start smoking?</h2>
-                            <div class="input-group form-group">
-                                <input type="number" id="year" min="1920" max="2020" step="1" class="form-control" placeholder="year">
+                                <h2>How many sticks did you smoke a day?</h2>
+                                <div class="input-group form-group">
+                                    <input type="number" id="perday" min="1" max="100" class="form-control" placeholder="15">
+                                </div>
+
+                                <h2>How many cigarettes are in a pack?</h2>
+                                <div class="input-group form-group">
+                                    <input type="number" id="pack" min="10" max="20" class="form-control" placeholder="20">
+                                </div>
+
+                                <h2>How much does your box of cigarettes cost?</h2>
+                                <div class="input-group form-group">
+                                    <input type="number" id="cost" class="form-control" placeholder="1500">
+                                </div>
+
+                                <h2>Which year did you start smoking?</h2>
+                                <div class="input-group form-group">
+                                    <input type="number" id="year" min="1920" max="2020" step="1" class="form-control" placeholder="2010">
+                                </div>
+                            
+                                <div class="form-group">
+                                    <input type="submit" id="finish_button" value="Save your profile" class="btn float-right login_btn">
+                                </div>
+                            
                             </div>
-        
-                            <div class="form-group">
-                                <input type="submit" id="finish_button" value="Save your profile" class="btn float-right login_btn">
-                            </div>
-           
                         </div>
                     </div>
-                </div>
-
-            </form>
+                </form>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js" integrity="sha512-0z9zJIjxQaDVzlysxlaqkZ8L9jh8jZ2d54F3Dn36Y0a8C6eI/RFOME/tLCFJ42hfOxdclfa29lPSNCmX5ekxnw==" crossorigin="anonymous"></script>
