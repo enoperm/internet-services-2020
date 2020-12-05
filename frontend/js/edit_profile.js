@@ -17,42 +17,71 @@ function CheckPassword(inputtxt)
     }
 }
 
+function getMonthFromString(mon){
+    return new Date(Date.parse(mon +" 1, 2012")).getMonth()+1
+ }
+
 function resetStats(){
-    var username = document.getElementById("unamei").value;
-    var password = document.getElementById("passi").value;
+    //var username = document.getElementById("unamei").value;
+    //var password = document.getElementById("passi").value;
+    var today = new Date().toDateString().split(" ");
+    today = today[3] + '-' + getMonthFromString(today[1]) + '-' + today[2]
+    console.log(today);
+    //var dd = String(today.getDate()).padStart(2, '0');
+    //var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    //var yyyy = today.getFullYear();
+    //var lasttime = yyyy + "-" + mm + "-" + dd;
 
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
+    var formData = {"last_smoke":today,"daily_average":$('#perday').val(),"sticks_per_pack":$('#pack').val(),"price_per_pack":$('#cost').val(),"start_year":$('#year').val()};
+    formData = JSON.stringify(formData);
 
-    var lasttime = yyyy + "-" + mm + "-" + dd;
-
+    $.ajax({
+        type: 'POST',
+        url: '/api/profile',
+        data: formData,
+        success: function( resp ) {
+            console.log( resp );
+            console.log('asd');
+            $('#date-time').val(today);
+        },
+        error: function( req, status, err ) {
+            console.log( 'something went wrong', status, err );
+        }
+    });
 }
 
-$( 'form' ).submit(function( event ) {
+$( '#profile_form' ).submit(function( event ) {
     event.preventDefault();
 
     var form = $( this );
-    var formData = {"username":$('#unamei').val(),"password":$('#passi').val(), "perday":$('#perday').val(),"datetime":$('#date-time').val(),
-                    "perday":$('#perday').val(),"pack":$('#pack').val(), "cost":$('#cost').val(), "year":$('#year').val()};
+    var formData = {"last_smoke":$('#date-time').val(),"daily_average":$('#perday').val(),"sticks_per_pack":$('#pack').val(),"price_per_pack":$('#cost').val(),"start_year":$('#year').val()};
     formData = JSON.stringify(formData);
 
-    var passwordValue = document.getElementById("passi").value;
-    var check = CheckPassword(passwordValue);
+    $.ajax({
+        type: 'POST',
+        url: '/api/profile',
+        data: formData,
+        success: function( resp ) {
+            console.log( resp );
+            console.log("posted");
+        }
+    });
+});
 
-    if(check){
-        $.ajax({
-            type: 'POST',
-            url: '/api/editprofile',
-            data: formData,
-            success: function( resp ) {
-                console.log( resp );
-                window.location.href = '/';
-            }
-        });
-    }
-    else{
-        document.getElementById("error_message").innerHTML="Wrong password format";
-    }
+$(function() {
+    $.ajax({
+        type: 'GET',
+        url: '/api/profile',
+        success: function( resp ) {
+            console.log( resp );
+            $('#date-time').val(resp["last_smoke"]);
+            $('#perday').val(resp["daily_average"]);
+            $('#pack').val(resp["sticks_per_pack"]);
+            $('#cost').val(resp["price_per_pack"]);
+            $('#year').val(resp["start_year"]);
+        },
+        error: function( req, status, err ) {
+            console.log( 'something went wrong', status, err );
+        }
+    });
 });
