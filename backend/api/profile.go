@@ -60,7 +60,11 @@ func (profApi *Profile) FetchProfile(rw http.ResponseWriter, req *http.Request) 
 		return
 	}
 
-	rankTier, _ := profApi.ProfileDB.FetchRank(uid)
+	rankTier, err := profApi.ProfileDB.FetchRank(uid)
+	if err != nil {
+		rw.WriteHeader(http.StatusNotFound)
+		return
+	}
 
 	pws := prof.WithStats()
 	pws.RankBelow = uint32(rankTier)
