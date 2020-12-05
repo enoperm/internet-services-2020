@@ -60,14 +60,19 @@ func (profApi *Profile) FetchProfile(rw http.ResponseWriter, req *http.Request) 
 		return
 	}
 
-	ser, err := json.Marshal(prof)
+	rankTier, _ := profApi.ProfileDB.FetchRank(uid)
+
+	pws := prof.WithStats()
+	pws.RankBelow = uint32(rankTier)
+
+	ser, err := json.Marshal(pws)
 	if err != nil {
 		fail(err)
 		return
 	}
 
-	rw.Write(ser)
 	rw.WriteHeader(http.StatusOK)
+	rw.Write(ser)
 }
 
 func (profApi *Profile) UpdateProfile(rw http.ResponseWriter, req *http.Request) {
