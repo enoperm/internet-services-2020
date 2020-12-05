@@ -39,7 +39,6 @@ func (sm *Session) Middleware(next http.Handler) http.Handler {
 			nextReq, err = sm.trySetSession(sessionCookie.Value, req)
 			log.Printf("middleware/session: %s", err)
 		}
-		log.Printf("middleware/session: context-v: %#v", nextReq.Context().Value(api.CONTEXT_SESSION))
 		next.ServeHTTP(rw, nextReq)
 	})
 }

@@ -67,8 +67,6 @@ func configureRouter(r *mux.Router, db *appdb.ApplicationDatabase) {
 		sr := r.PathPrefix("/profile").Subrouter()
 		api.NewProfileApi(sr, db, db)
 	}
-	r.PathPrefix("/stats").Handler(&api.Todo{Name: "stats"})
-	r.PathPrefix("/rankings").Handler(&api.Todo{Name: "rankings"})
 	r.PathPrefix("/motd").Handler(&api.Todo{Name: "motd"})
 
 	r.PathPrefix("/").HandlerFunc(logUnhandledPrefix)
