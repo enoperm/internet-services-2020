@@ -7,21 +7,8 @@ services:
             context: ./backend
         volumes:
             - backend-data:/data:rw,z
-
-    reverse-proxy:
-        image: docker.io/nginx:alpine
         ports: 
             - 2000:2000
-        volumes:
-            - ./frontend:/var/www/html/:ro,z
-        secrets: # compose is weird, does not support configs but does support secrets?
-            - source: rp-nginx-conf
-              target: /etc/nginx/nginx.conf
-              mode: 0444
 
 volumes:
     backend-data: {}
-
-secrets:
-    rp-nginx-conf:
-        file: ./configs/reverse-proxy/nginx.conf

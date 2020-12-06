@@ -1,3 +1,4 @@
+{{ if .is_authenticated }}
 <nav>
     <a href="/" id="menu-home">Home</a>
         <div id="menuToggle">
@@ -16,11 +17,8 @@
                 <li><a href="#" onclick="document.logout.submit();return false;">Log out ({{.user_name}})</a></li>
             </ul>
         </div>
-        {{ if .is_authenticated }}
-        {{ end }}
     </ul>
 </nav>
-{{ if .is_authenticated }}
 <form method="POST" action="/auth/logout" style="display:none" name="logout">
     <input type="hidden" name="csrf_token" value="{{ .csrf_token }}">
 </form>
