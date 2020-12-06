@@ -18,6 +18,8 @@ RUN go build -o /src/backend .
 FROM alpine:3.12
 
 COPY --from=builder /src/backend /backend
+COPY --from=builder /src/views /views
+COPY --from=builder /src/static /static
 
 RUN mkdir /data && chown -R nobody:nobody /data
 VOLUME /data
