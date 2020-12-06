@@ -1,2 +1,7 @@
+data/
 *.sqlite
 internet-services-2020
+cookie.txt
+.gitignore
+.dockerignore
+Dockerfile

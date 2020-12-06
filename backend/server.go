@@ -1,93 +1,105 @@
 package main
 
 import (
-	"context"
-	"database/sql"
-	"log"
+	"encoding/base64"
+	"html/template"
+
+	"github.com/foolin/goview"
+	"github.com/foolin/goview/supports/ginview"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-gonic/gin"
+
 	"net/http"
-	"os"
-	"os/signal"
+
+	"github.com/gin-gonic/nosurf"
+	adapter "github.com/gwatts/gin-adapter"
+
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+
+	"server/model"
+
+	"server/endpoint/user"
+	"server/middleware"
 	"time"
-
-	"github.com/gorilla/mux"
-	_ "github.com/mattn/go-sqlite3"
-
-	api "github.com/enoperm/internet-services-2020/api"
-	appdb "github.com/enoperm/internet-services-2020/db"
-	"github.com/enoperm/internet-services-2020/middleware"
 )
 
 func main() {
-	db := configureDb()
-	urlRouter := mux.NewRouter()
-	configureRouter(urlRouter, db)
-
-	server := http.Server{
-		Addr:    "0.0.0.0:2000",
-		Handler: urlRouter,
-
-		WriteTimeout: 10 * time.Second,
-		ReadTimeout:  10 * time.Second,
-		IdleTimeout:  10 * time.Second,
+	db, err := gorm.Open(sqlite.Open("./data/test.db"), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
 	}
 
-	go func() {
-		err := server.ListenAndServe()
-		if err != nil {
-			log.Fatalln(err)
-		}
+	cookieStore := cookie.NewStore([]byte("TODO-take-secret-from-elsewhere"))
+
+	router := gin.Default()
+
+	csrfHandler := func() gin.HandlerFunc {
+		next, wrapper := adapter.New()
+		nsHandler := nosurf.New(next)
+		nsHandler.SetBaseCookie(http.Cookie{
+			Path:     "/",
+			HttpOnly: true,
+		})
+		nsHandler.SetFailureHandler(http.HandlerFunc((func(rw http.ResponseWriter, req *http.Request) {
+			http.Error(rw, "failed to verify CSRF token", http.StatusBadRequest)
+		})))
+
+		return wrapper(nsHandler)
 	}()
 
-	awaitShutdown(&server)
-}
+	router.Use(csrfHandler)
+	router.Use(sessions.Sessions("login_state", cookieStore))
 
-func configureDb() *appdb.ApplicationDatabase {
-	db, err := sql.Open("sqlite3", "./data/db.sqlite3")
-	if err != nil {
-		log.Fatalln("configure-db:", err)
-	}
-	return &appdb.ApplicationDatabase{db}
-}
+	router.Static("/static/", "./static/")
 
-func configureRouter(r *mux.Router, db *appdb.ApplicationDatabase) {
-	secret := []byte("very-secret-session-key-we-whould-take-this-from-config-or-env") // TODO FIXME
-	session := middleware.NewSession(db, secret)
-
-	r.Use(session.Middleware)
-
-	{
-		sr := r.PathPrefix("/register").Subrouter()
-		api.NewRegisterApi(sr, db)
-	}
-	{
-		sr := r.PathPrefix("/session").Subrouter()
-		api.NewSessionApi(sr, db, db, secret)
-	}
-	{
-		sr := r.PathPrefix("/profile").Subrouter()
-		api.NewProfileApi(sr, db, db)
-	}
-	r.PathPrefix("/motd").Handler(&api.Todo{Name: "motd"})
-
-	r.PathPrefix("/").HandlerFunc(logUnhandledPrefix)
-
-	r.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
-		log.Println(route.GetPathTemplate())
-		return nil
+	router.HTMLRender = ginview.New(goview.Config{
+		Root:      "views",
+		Extension: ".html.tmpl",
+		Master:    "layouts/main",
+		Funcs: template.FuncMap{
+			"formatTime": func(t time.Time) string {
+				return t.Format("2006.01.02. 15:04")
+			},
+			"base64": func(bytes []byte) string {
+				return base64.StdEncoding.EncodeToString(bytes)
+			},
+		},
+		DisableCache: true,
 	})
-}
 
-func logUnhandledPrefix(rw http.ResponseWriter, req *http.Request) {
-	log.Printf("request to unhandled prefix '%s' from '%s'", req.URL.String(), req.RemoteAddr)
-}
+	userEndpoint := user.AttachUserEndpoints(router, db)
+	userFromSession := func(c *gin.Context) *model.User {
+		return userEndpoint.GetCurrentUserFromSession(c)
+	}
+	router.Use(middleware.WithUser(userFromSession))
 
-func awaitShutdown(server *http.Server) {
-	sigChan := make(chan os.Signal, 1)
-	signal.Notify(sigChan, os.Interrupt)
-	<-sigChan
+	authorized := router.Group("/auth")
+	{
+		user.AttachProfileEnpoints(authorized, db)
+	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
+	// avoid import cycle so user endpoint package can defer tasks to middleware
 
-	server.Shutdown(ctx)
+	authorized.Use(middleware.AuthRequired())
+	{
+		// TODO: Profile, hall of fame
+		authorized.POST("/logout", func(c *gin.Context) {
+			userEndpoint.SetCurrentUser(c, nil)
+			c.Redirect(http.StatusSeeOther, "/")
+		})
+	}
+
+	router.GET("/", func(c *gin.Context) {
+		currentUser := middleware.CurrentUser(c)
+		if currentUser != nil {
+			c.Redirect(http.StatusTemporaryRedirect, "/auth/profile")
+			return
+		}
+
+		c.Redirect(http.StatusTemporaryRedirect, "/login")
+	})
+
+	http.ListenAndServe(":2000", router)
 }

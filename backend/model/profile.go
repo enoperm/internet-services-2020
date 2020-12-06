@@ -2,17 +2,22 @@ package model
 
 import (
 	"fmt"
+	"gorm.io/gorm"
 	"math"
 	"errors"
 	"time"
 )
 
 type Profile struct {
-	LastSmoke string `json:"last_smoke"` // TODO
-	DailyAverage uint32 `json:"daily_average"`
-	SticksPerPack uint32 `json:"sticks_per_pack"`
-	PricePerPack uint32 `json:"price_per_pack"`
-	StartYear uint32 `json:"start_year"`
+	gorm.Model
+	
+	UserID uint `gorm:"unique;not null"`
+
+	LastSmoke string `form:"last_smoke" binding:"required"`
+	DailyAverage uint32 `form:"daily_average" binding:"required"`
+	SticksPerPack uint32 `form:"sticks_per_pack" binding:"required"`
+	PricePerPack uint32 `form:"price_per_pack" binding:"required"`
+	StartYear uint32 `form:"start_year" binding:"required"`
 }
 
 var (

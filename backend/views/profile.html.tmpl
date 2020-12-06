@@ -1,0 +1,66 @@
+{{ define "head" }}
+    <link rel="stylesheet" href="/static/css/edit_profile.css"/>
+{{ end }}
+
+{{ define "content" }}
+<section>
+    <header>
+        <h2>Profile</h2>
+    </header>
+
+    <div class="edit-div">
+        <h5>Account settings:</h5>
+            <form>
+                <div class="edit-username">
+                    <label for="usname" id="usnamel">Username:</label>
+                    <input type="text" id="unamei" name="fname" value="{{ .user_name }}" disabled>
+                </div>
+            </form>
+
+            <form id="profile_form" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ .csrf_token }}">
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div id="smoke-header"><h5>Smoking habits</h5></div>
+                            <div id="smoke-button"><button type="button" onclick="resetStats()">Reset my stats</button></div>
+                        </div>
+                        <div class="card-body">
+                            <h2>When did you smoke your last cigarette?</h2>
+                            <div class="input-group form-group">
+                                <input type="date" id="date-time" class="form-control" name="last_smoke" placeholder="2019-08-24" value="{{ .profile.LastSmoke }}">
+                            </div>
+
+                            <h2>How many sticks did you smoke a day?</h2>
+                            <div class="input-group form-group">
+                                <input type="number" id="perday" min="1" max="100" name="daily_average" class="form-control" placeholder="15" value="{{ .profile.DailyAverage }}">
+                            </div>
+
+                            <h2>How many cigarettes are in a pack?</h2>
+                            <div class="input-group form-group">
+                                <input type="number" id="pack" min="10" max="20" name="sticks_per_pack" class="form-control" placeholder="20" value="{{ .profile.SticksPerPack }}">
+                            </div>
+
+
+                            <h2>How much does your box of cigarettes cost?</h2>
+                            <div class="input-group form-group">
+                                <input type="number" id="cost" class="form-control" placeholder="1500" name="price_per_pack" value="{{ .profile.PricePerPack }}">
+                            </div>
+
+                            <h2>Which year did you start smoking?</h2>
+                            <div class="input-group form-group">
+                                <input type="number" id="year" min="1920" max="2020" step="1" class="form-control" name="start_year" placeholder="2010" value="{{ .profile.StartYear }}">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" id="finish_button" value="Save your profile" class="btn float-right login_btn">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </div>
+
+</section>
+{{ end }}}

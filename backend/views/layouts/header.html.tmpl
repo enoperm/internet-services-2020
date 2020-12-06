@@ -1,0 +1,15 @@
+<nav>
+    <a href="/">Home</a>
+    <ul>
+        {{ if .is_authenticated }}
+        <li><a href="/auth/profile">Profile</a></li>
+        <li><a href="/auth/hall-of-fame">Hall of Fame</a></li>
+        <li><a href="#" onclick="document.logout.submit();return false;">Log out ({{.user_name}})</a></li>
+        {{ end }}
+    </ul>
+</nav>
+{{ if .is_authenticated }}
+<form method="POST" action="/auth/logout" style="display:none" name="logout">
+    <input type="hidden" name="csrf_token" value="{{ .csrf_token }}">
+</form>
+{{ end }}
