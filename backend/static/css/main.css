@@ -13,6 +13,10 @@ h3 {
     text-align: center;
 }
 
+.section-title {
+    color: white;
+}
+
 #menuToggle {
     margin: 8px;
     float: right;

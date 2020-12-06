@@ -1,14 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"github.com/enoperm/internet-services-2020/util"
-	"html/template"
-
 	"github.com/foolin/goview"
 	"github.com/foolin/goview/supports/ginview"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"html/template"
 
 	"net/http"
 
@@ -57,7 +57,37 @@ func main() {
 		Root:         "views",
 		Extension:    ".html.tmpl",
 		Master:       "layouts/main",
-		Funcs:        template.FuncMap{},
+		Funcs:        template.FuncMap{
+			"humanTimespan": func(days uint32) string {
+				years := days / 365
+				days = days % 365
+				months := days / 30
+				days = days % 30
+				
+				var yearStr, monthStr, dayStr string
+				
+				if years > 0 {
+					yearStr = fmt.Sprintf("%d years, ", years)
+				}
+
+				monthStr = fmt.Sprintf("%d months, ", months)
+				dayStr = fmt.Sprintf("%d days", days)
+
+				return fmt.Sprintf("%s%s%s", yearStr, monthStr, dayStr)
+			},
+			"benefitsAt": func(days uint32) string {
+				switch {
+				case days >= 60:
+					return "Message 2"
+
+				case days >= 30:
+					return "Message 1"
+
+				default:
+					return "Message 0"
+				}
+			},
+		},
 		DisableCache: true,
 	})
 
@@ -83,7 +113,18 @@ func main() {
 		})
 
 		authorized.GET("/main", func(c *gin.Context) {
-			util.HtmlWithContext(c, http.StatusOK, "main", gin.H{})
+			var profile model.Profile
+			u := middleware.CurrentUser(c)
+			db.Model(&profile).Where("user_id = ?", u.ID).First(&profile)
+			htmlContext := gin.H{}
+
+			if profile.UserID == u.ID {
+				htmlContext = gin.H{
+					"Stats": profile.Stats(),
+				}
+			}
+
+			util.HtmlWithContext(c, http.StatusOK, "main", htmlContext)
 		})
 
 		user.AttachHallOfFameEndpoints(authorized, db)

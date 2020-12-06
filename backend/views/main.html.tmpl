@@ -4,45 +4,35 @@
 
 {{ define "content" }}
 <section>
-    <header>
-        <h2>Your stats</h2>
-    </header>
-
     <div class="edit-div">
         <div class="outside">
-            <div class="stats">
-                <div class="stat-header">
-                    <h4>Your statistics</h4>
+            {{ if .Stats }}
+                <div class="stats">
+                    <h4 class="stats-header">Your statistics</h4>
+
+                    <h5 id="time-header" class="headers">Time elapsed:</h5>
+                    <div class="value">
+                        <h5 id="time">It has been {{ humanTimespan .Stats.Days }} since you quit.</h5>
+                    </div>
+
+                    <h5 class="headers">Cigarettes you haven't smoked:</h5>
+                    <div class="value">
+                        <h5 id="count">You abstained from {{ .Stats.PackCount }} packs and {{ .Stats.PackRemainder }} sticks, a total of {{ .Stats.TotalSticks }} sticks.</h5>
+                    </div>
+
+                    <h5 class="headers">Saved money:</h5>
+                    <div class="value">
+                        <h5 id="money">So far, you have saved {{ .Stats.TotalSavings }} Forints by not smoking.</h5>
+                    </div>
+
+                    <h5 class="headers">Health benefits:</h5>
+                    <h5 class="begin" id="health">
+                        {{ benefitsAt .Stats.Days }}
+                    </h5>
                 </div>
-
-                <h5 id="time-header" class="headers">Time elapsed:</h5>
-                <div class="value">
-                    <h5 id="time">It has been 1 year, 3 months, 12 days since you quit.</h5>
-                </div>
-
-                <h5 class="headers">Cigarettes you haven't smoked:</h5>
-                <div class="value">
-                    <h5 id="count">You haven't smoked 299 packs and 15 pieces, which means 5995 pieces.</h5>
-                </div>
-
-                <h5 class="headers">Saved money:</h5>
-                <div class="value">
-                    <h5 id="money">You have saved 426000 Forint by not smoking.</h5>
-                </div>
-
-                <h5 class="headers">Gave up after years:</h5>
-                <div class="value">
-                    <h5 id="year">Congratulations! Finally you gave up smoking after 6 years. You can be so proud of you!</h5>
-                </div>
-
-                <h5 class="headers">Health benefits:</h5>
-                <h5 class="begin" id="health">Your heart rate and blood pressure dropped. The carbon monoxide level in your blood dropped to normal.
-                    Your circulation improved and your lung function increased. Coughing and shortness of breath decreased.
-                    Tiny hair-like structures that move mucus out of the lungs (called cilia) started to regain normal function,
-                    increasing their ability to handle mucus, clean the lungs, and reduce the risk of infection.
-                </h5>
-            </div>
-
+            {{ else }}
+                <h5>You have not set up a profile yet.</h5>
+            {{ end }}
         </div>
     </div>
 
