@@ -3,11 +3,11 @@ package user
 import (
 	"fmt"
 	"github.com/enoperm/internet-services-2020/util"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"net/http"
 	. "server/model"
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-gonic/gin"
 )
 import "log"
 
@@ -23,13 +23,15 @@ func AttachUserEndpoints(router gin.IRouter, db *gorm.DB) *UserManager {
 	um := UserManager{
 		db: db,
 	}
-	
+
 	err := um.db.AutoMigrate(&User{})
-	if err != nil { panic(err) }
-	
+	if err != nil {
+		panic(err)
+	}
+
 	attachRegisterEndpoints(&um, router)
 	attachLoginEndpoints(&um, router)
-	
+
 	return &um
 }
 
@@ -86,17 +88,19 @@ func (um UserManager) renderRegister(c *gin.Context) {
 
 func (um UserManager) postRegister(c *gin.Context) {
 	var regReq struct {
-		Name string `form:"username" binding:"required"`
+		Name     string `form:"username" binding:"required"`
 		Password string `form:"password" binding:"required"`
 	}
-	
+
 	fmt.Printf("PR: %#v\n", c.Params)
 
 	err := c.ShouldBind(&regReq)
-	if err != nil { panic(err) }
+	if err != nil {
+		panic(err)
+	}
 
 	user := User{
-		Name: regReq.Name,
+		Name:         regReq.Name,
 		PasswordHash: HashPassword(regReq.Password),
 	}
 
@@ -107,7 +111,7 @@ func (um UserManager) postRegister(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	c.Redirect(http.StatusSeeOther, "/")
 }
 
@@ -116,7 +120,7 @@ func (um UserManager) postLogin(c *gin.Context) {
 		Username string `form:"username" binding:"required"`
 		Password string `form:"password" binding:"required"`
 	}
-	
+
 	err := c.ShouldBind(&credentials)
 	if err != nil {
 		um.renderLogin(c)
@@ -128,15 +132,15 @@ func (um UserManager) postLogin(c *gin.Context) {
 	if tx.Error != nil {
 		panic(tx.Error)
 	}
-	
+
 	err = CheckPasswordsMatch(credentials.Password, user.PasswordHash)
 	if err != nil {
 		log.Println("pwcheck:", err)
 		um.renderLogin(c)
 		return
 	}
-	
+
 	um.SetCurrentUser(c, &user)
-	
+
 	c.Redirect(http.StatusSeeOther, "/")
 }

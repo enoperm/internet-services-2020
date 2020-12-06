@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/base64"
+	"github.com/enoperm/internet-services-2020/util"
 	"html/template"
 
 	"github.com/foolin/goview"
@@ -22,7 +22,6 @@ import (
 
 	"server/endpoint/user"
 	"server/middleware"
-	"time"
 )
 
 func main() {
@@ -55,17 +54,10 @@ func main() {
 	router.Static("/static/", "./static/")
 
 	router.HTMLRender = ginview.New(goview.Config{
-		Root:      "views",
-		Extension: ".html.tmpl",
-		Master:    "layouts/main",
-		Funcs: template.FuncMap{
-			"formatTime": func(t time.Time) string {
-				return t.Format("2006.01.02. 15:04")
-			},
-			"base64": func(bytes []byte) string {
-				return base64.StdEncoding.EncodeToString(bytes)
-			},
-		},
+		Root:         "views",
+		Extension:    ".html.tmpl",
+		Master:       "layouts/main",
+		Funcs:        template.FuncMap{},
 		DisableCache: true,
 	})
 
@@ -90,13 +82,17 @@ func main() {
 			c.Redirect(http.StatusSeeOther, "/")
 		})
 
+		authorized.GET("/main", func(c *gin.Context) {
+			util.HtmlWithContext(c, http.StatusOK, "main", gin.H{})
+		})
+
 		user.AttachHallOfFameEndpoints(authorized, db)
 	}
 
 	router.GET("/", func(c *gin.Context) {
 		currentUser := middleware.CurrentUser(c)
 		if currentUser != nil {
-			c.Redirect(http.StatusTemporaryRedirect, "/auth/profile")
+			c.Redirect(http.StatusTemporaryRedirect, "/auth/main")
 			return
 		}
 

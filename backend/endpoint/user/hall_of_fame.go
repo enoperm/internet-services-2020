@@ -21,7 +21,7 @@ func AttachHallOfFameEndpoints(router gin.IRouter, db *gorm.DB) *HallOfFame {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	hof := HallOfFame{
 		db: db,
 	}
@@ -34,7 +34,7 @@ func AttachHallOfFameEndpoints(router gin.IRouter, db *gorm.DB) *HallOfFame {
 func (hof HallOfFame) renderHall(c *gin.Context) {
 	var profiles []Profile
 
-	tx := hof.db.Model(&Profile{});
+	tx := hof.db.Model(&Profile{})
 	if tx.Error != nil {
 		panic(tx.Error)
 	}
@@ -47,9 +47,9 @@ func (hof HallOfFame) renderHall(c *gin.Context) {
 	}
 
 	sort.Slice(profiles, func(i, j int) bool {
-		left:= profiles[i]
+		left := profiles[i]
 		right := profiles[j]
-		
+
 		return left.LastSmokeTime().Before(right.LastSmokeTime())
 	})
 
@@ -57,9 +57,9 @@ func (hof HallOfFame) renderHall(c *gin.Context) {
 		Name string
 		Days int
 	}
-	
+
 	pubProfiles := make(map[int]pubProf, len(profiles))
-	
+
 	present := time.Now()
 	days := func(t time.Time) int {
 		return int(present.Sub(t).Hours() / 24.0)
@@ -68,7 +68,7 @@ func (hof HallOfFame) renderHall(c *gin.Context) {
 	for i, p := range profiles {
 		var u User
 		hof.db.Model(&User{}).Where("id = ?", p.UserID).First(&u)
-		pubProfiles[i + 1] = pubProf{
+		pubProfiles[i+1] = pubProf{
 			Name: u.Name,
 			Days: days(p.LastSmokeTime()),
 		}
@@ -82,4 +82,3 @@ func (hof HallOfFame) renderHall(c *gin.Context) {
 func (hof HallOfFame) getHall(c *gin.Context) {
 	hof.renderHall(c)
 }
-

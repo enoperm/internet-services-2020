@@ -11,7 +11,7 @@ type User struct {
 	gorm.Model
 	Profile *Profile `gorm:"foreignKey:UserID;references:ID;constraint:OnDelete:CASCADE;unique"`
 
-	Name string `gorm:"unique;not null"`
+	Name         string       `gorm:"unique;not null"`
 	PasswordHash PasswordHash `gorm:"not null"`
 }
 

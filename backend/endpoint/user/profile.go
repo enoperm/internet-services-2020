@@ -21,7 +21,7 @@ func AttachProfileEnpoints(router gin.IRouter, db *gorm.DB) *ProfileManager {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	pm := ProfileManager{
 		db: db,
 	}
@@ -50,16 +50,16 @@ func (pm ProfileManager) postProfile(c *gin.Context) {
 	var profile Profile
 	user := middleware.CurrentUser(c)
 	pm.db.Model(&profile).Where("user_id = ?", user.ID).First(&profile)
-	
+
 	fmt.Println(c.Params)
-	
+
 	_ = c.ShouldBind(&profile)
 	profile.UserID = user.ID
-	
+
 	tx := pm.db.Save(&profile)
 	if tx.Error != nil {
 		panic(tx.Error)
 	}
-	
+
 	c.Redirect(http.StatusSeeOther, "/auth/profile")
 }
