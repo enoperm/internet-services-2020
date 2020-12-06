@@ -7,10 +7,6 @@ h6{
     font-size: 20px;
 }
 
-.edit-div{
-    border: 2px solid white;
-}
-
 .username-div{
   display: flex;
   border-bottom: 2px solid white;
@@ -29,18 +25,6 @@ h6{
 .username h6{
   margin-left: 100px;
   margin-top: 10px;
-}
-
-.btn {
-  border: none;
-  background-color: inherit;
-  font-size: 16px;
-  cursor: pointer;
-  display: inline-block;
-  margin-left: 140px;
-  width: 60px;
-  height: 30px;
-  margin-top: 0;
 }
 
 .info {color: dodgerblue;}
@@ -63,7 +47,7 @@ h6{
 
 .login_btn {
     color: black;
-    background-color: #FFC312;
+    background-color: red;
     width: 200px;
     height: 50px;
     margin-right: 0;
@@ -73,31 +57,6 @@ h6{
 .login_btn:hover{
     color: black;
     background-color: white;
-}
-
-.card{
-    background-color:  #101010;
-    width: 100%;
-    border-top: 2px solid white;
-}
-
-.card-header{
-    padding: 0;
-    display: flex;
-    width: 100%;
-    border-bottom: 2px solid white;
-}
-
-#smoke-header{
-    width: 50%;
-}
-
-#smoke-button{
-    width: 50%;
-}
-
-button{
-    margin-top: 15px;
 }
 
 h2{

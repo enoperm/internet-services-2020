@@ -3,26 +3,30 @@
 
 {{ define "content" }}
 <section>
-    <header>
-        <h2>Hall of Fame</h2>
-    </header>
-    <table>
-        <thead>
-            <tr>
-                <th>Rank</ht>
-                <th>Name</ht>
-                <th>Days free</ht>
-            </tr>
-        </thead>
-        <tbody>
-        {{ range $rank, $p := .Profiles }}
-            <tr>
-                <td class="col-rank">{{ $rank }}</td>
-                <td class="col-name">{{ $p.Name }}</td>
-                <td class="col-days">{{ $p.Days }}</td>
-            </tr>
-        {{ end }}
-        </tbody>
-    </table>
+    <div class="card">
+        <div class="card-header text-dark">
+            <h3>Hall of fame</h3>
+        </div>
+        <div class="card-body d-flex justify-content-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Rank</ht>
+                        <th>Name</ht>
+                        <th>Days free</ht>
+                    </tr>
+                </thead>
+                <tbody>
+                {{ range $rank, $p := .Profiles }}
+                    <tr>
+                        <td class="col-rank">{{ $rank }}</td>
+                        <td class="col-name">{{ $p.Name }}</td>
+                        <td class="col-days">{{ $p.Days }}</td>
+                    </tr>
+                {{ end }}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 {{ end }}}

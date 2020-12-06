@@ -9,8 +9,8 @@ html, body {
 
 h3 {
     font-size: 60px;
-    color: white;
     text-align: center;
+    margin-left: 30px;
 }
 
 .section-title {
@@ -57,11 +57,6 @@ nav{
     background-color: black;
 }
 
-h3{
-    font-size: 60px;
-    color: white;
-    margin-left: 30px;
-}
 
 /*
  * Just a quick hamburger
@@ -238,4 +233,20 @@ section {
     margin: 16px;
     color: white;
     font-size:  1.5rem;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: red !important;
+    border-color: red !important;
+    color: #222 !important;
+}
+.btn-primary:active, .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(160, 110, 110, 0.5) !important;
+}
+
+.input-group-prepend span{
+    width: 50px;
+    background-color: rgb(223, 22, 22);
+    color: black;
+    border:0 !important;
 }

@@ -2,25 +2,23 @@
 {{ end }}
 
 {{ define "content" }}
-    <link rel="stylesheet" href="/static/css/registration.css">
+    <!--<link rel="stylesheet" href="/static/css/registration.css">-->
 
     <header>
-        <h2>Register</h2>
         {{ if .error }}
         <p class="error">{{ .error }}</p>
         {{ end }}
     </header>
-
-    <form method="POST">
-        <input type="hidden" name="csrf_token" value="{{ .csrf_token }}">
-
-		<div class="container">
-			<div class="d-flex justify-content-center h-100">
-				<div class="card">
-					<div class="card-header">
-						<h3>Registration</h3>
-					</div>
-					<form>
+<section>
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header text-dark">
+                    <h3>Sign in</h3>
+                </div>
+				<div class="card-body">
+					<form method="POST">
+        				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}">
 						<div class="card-body">
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
@@ -28,14 +26,12 @@
 								</div>
 								<input type="text" id="uniqueusername" name="username" class="form-control" placeholder="username">
 							</div>
-
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
 								</div>
 								<input type="password" id="mypassword" name="password" class="form-control" placeholder="password" onkeyup="check()">
 							</div>
-
 							<div class="input-group form-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -49,13 +45,16 @@
 						<div id="last-div" class="form-group">
 							<div id="error_message"></div>
 							<div class="finish-button">
-								<input type="submit" id="next_button" disabled="true" value="Finish" class="btn float-right login_btn">
+								<input type="submit" id="next_button" disabled="true" value="Finish" class="btn btn-primary btn-lg float-right">
 							</div>
 						</div>
-					</form>
+    				</form>
+				</div>
 			</div>
 		</div>
-    </form>
+	</div>
+</section>
+    
 
     <script src="/static/js/registration.js" type="application/javascript"></script>
 {{ end }}}
