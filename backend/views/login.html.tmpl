@@ -2,6 +2,11 @@
 {{ end }}
 
 {{ define "content" }}
+<header>
+    {{ if .error }}
+    <p class="error">{{ .error }}</p>
+    {{ end }}
+</header>
 <section>
     <div class="container">
         <div class="d-flex justify-content-center h-100">
@@ -29,12 +34,11 @@
                         </div>
         			</form>
                     <div class="text-danger" id="errormessage">
-
                     </div>
                 </div>
                 <div class="card-footer">
                     <div class="foot d-flex justify-content-center links">
-                        Don't have an account?<a href="/register">Sign up here!</a>
+                        Don't have an account?<a href="/register" class="text-decoration-none">Sign up here!</a>
                     </div>
                 </div>
             </div>

@@ -156,22 +156,6 @@ nav{
     transform: none;
 }
 
-.outside{
-    display: flex;
-}
-
-.stats{
-    border: 2px solid white;
-    height: 90vh;
-    width: 90vw;
-    margin-left: 35px;
-    margin-top: 70px;
-}
-
-.stats #time-header{
-    border-top: 0;
-}
-
 h4{
     font-size: 30px;
     color: white;
@@ -183,27 +167,6 @@ h5{
     color: white;
     font-size: 20px;
     text-align: justify;
-}
-
-.stat-header{
-    border-bottom: 2px solid white;
-    text-align: center;
-}
-
-.toplist-header{
-    border-bottom: 2px solid white;
-    text-align: center;
-}
-
-.headers{
-    border-bottom: 2px solid white;
-    border-top: 2px solid white;
-    color: red;
-    padding: 10px;
-}
-
-.value{
-    display: flex;
 }
 
 .begin{
@@ -249,4 +212,12 @@ section {
     background-color: rgb(223, 22, 22);
     color: black;
     border:0 !important;
+}
+
+section a, section a:visited{
+    color: red !important;
+}
+
+.value{
+    color: red;
 }

@@ -4,37 +4,42 @@
 
 {{ define "content" }}
 <section>
-    <div class="edit-div">
-        <div class="outside">
+    <div class="card">
+        <div class="card-header text-dark">
+            <h3>Statistics</h3>
+        </div>
+        <div class="card-body">
             {{ if .Stats }}
-                <div class="stats">
-                    <h4 class="stats-header">Your statistics</h4>
-
-                    <h5 id="time-header" class="headers">Time elapsed:</h5>
-                    <div class="value">
-                        <h5 id="time">It has been {{ humanTimespan .Stats.Days }} since you quit.</h5>
-                    </div>
-
-                    <h5 class="headers">Cigarettes you haven't smoked:</h5>
-                    <div class="value">
-                        <h5 id="count">You abstained from {{ .Stats.PackCount }} packs and {{ .Stats.PackRemainder }} sticks, a total of {{ .Stats.TotalSticks }} sticks.</h5>
-                    </div>
-
-                    <h5 class="headers">Saved money:</h5>
-                    <div class="value">
-                        <h5 id="money">So far, you have saved {{ .Stats.TotalSavings }} Forints by not smoking.</h5>
-                    </div>
-
-                    <h5 class="headers">Health benefits:</h5>
-                    <h5 class="begin" id="health">
-                        {{ benefitsAt .Stats.Days }}
-                    </h5>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h5 id="time-header" class="">Time elapsed:</h5>
+                        <div class="">
+                            It has been <span class="value">{{ humanTimespan .Stats.Days }}</span> since you quit.
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="">Cigarettes you haven't smoked:</h5>
+                        <div class="">
+                            You abstained from <span class="value">{{ .Stats.PackCount }}</span> packs and <span class="value">{{ .Stats.PackRemainder }}</span> sticks, a total of <span class="value">{{ .Stats.TotalSticks }}</span> sticks.
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="">Saved money:</h5>
+                        <div class="">
+                            So far, you have saved <span class="value">{{ .Stats.TotalSavings }}</span> Forints by not smoking.
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 class="">Health benefits:</h5>
+                        <div class="" id="health">
+                            {{ benefitsAt .Stats.Days }}
+                        </div>
+                    </li>
+                </ul>
             {{ else }}
                 <h5>You have not set up a profile yet.</h5>
             {{ end }}
         </div>
     </div>
-
 </section>
 {{ end }}}

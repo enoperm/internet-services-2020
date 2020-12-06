@@ -3,9 +3,13 @@
 
 {{ define "content" }}
 <section>
-    <header>
-        <h2>Unauthorized!</h2>
-    </header>
-    <p>Please log in or register to continue.</p>
+    <div class="card">
+        <div class="card-header">
+            <h2>Unauthorized!</h2>
+        </div>
+        <div class="card-body">
+            <p>Please <a href="/login" class="text-decoration-none">log in</a> or <a href="/register" class="text-decoration-none">register</a> to continue.</p>
+        </div>
+    </div>
 </section>
 {{ end }}}

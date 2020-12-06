@@ -2,45 +2,41 @@
 {{ end }}
 
 {{ define "content" }}
-    <!--<link rel="stylesheet" href="/static/css/registration.css">-->
-
-    <header>
-        {{ if .error }}
-        <p class="error">{{ .error }}</p>
-        {{ end }}
-    </header>
+<header>
+    {{ if .error }}
+    <p class="error">{{ .error }}</p>
+    {{ end }}
+</header>
 <section>
     <div class="container">
         <div class="d-flex justify-content-center h-100">
             <div class="card">
                 <div class="card-header text-dark">
-                    <h3>Sign in</h3>
+                    <h3>Sign up</h3>
                 </div>
 				<div class="card-body">
 					<form method="POST">
         				<input type="hidden" name="csrf_token" value="{{ .csrf_token }}">
-						<div class="card-body">
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-user"></i></span>
-								</div>
-								<input type="text" id="uniqueusername" name="username" class="form-control" placeholder="username">
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
-								</div>
-								<input type="password" id="mypassword" name="password" class="form-control" placeholder="password" onkeyup="check()">
+							<input type="text" id="uniqueusername" name="username" class="form-control" placeholder="username">
+						</div>
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<div class="input-group form-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-key"></i></span>
-								</div>
-								<input type="password" id="mypassword_again" class="form-control" placeholder="confirm password" onkeyup="check()">
+							<input type="password" id="mypassword" name="password" class="form-control" placeholder="password" onkeyup="check()">
+						</div>
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<div class="check-div">
-								<span id='message'></span>
-							</div>
+							<input type="password" id="mypassword_again" class="form-control" placeholder="confirm password" onkeyup="check()">
+						</div>
+						<div class="check-div">
+							<span id='message'></span>
 						</div>
 						<div id="last-div" class="form-group">
 							<div id="error_message"></div>
