@@ -53,8 +53,7 @@ func (pm ProfileManager) postProfile(c *gin.Context) {
 	
 	fmt.Println(c.Params)
 	
-	err := c.ShouldBind(&profile)
-	fmt.Println("bind:", err)
+	_ = c.ShouldBind(&profile)
 	profile.UserID = user.ID
 	
 	tx := pm.db.Save(&profile)

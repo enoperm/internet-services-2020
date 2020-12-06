@@ -1,0 +1,28 @@
+{{ define "head" }}
+{{ end }}
+
+{{ define "content" }}
+<section>
+    <header>
+        <h2>Hall of Fame</h2>
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</ht>
+                <th>Name</ht>
+                <th>Days free</ht>
+            </tr>
+        </thead>
+        <tbody>
+        {{ range $rank, $p := .Profiles }}
+            <tr>
+                <td class="col-rank">{{ $rank }}</td>
+                <td class="col-name">{{ $p.Name }}</td>
+                <td class="col-days">{{ $p.Days }}</td>
+            </tr>
+        {{ end }}
+        </tbody>
+    </table>
+</section>
+{{ end }}}

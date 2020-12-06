@@ -89,6 +89,8 @@ func main() {
 			userEndpoint.SetCurrentUser(c, nil)
 			c.Redirect(http.StatusSeeOther, "/")
 		})
+
+		user.AttachHallOfFameEndpoints(authorized, db)
 	}
 
 	router.GET("/", func(c *gin.Context) {
