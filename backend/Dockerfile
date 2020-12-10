@@ -1,6 +1,6 @@
 FROM golang:alpine AS builder
 
-RUN apk add --no-cache build-base
+RUN apk add --no-cache build-base git
 
 RUN adduser -S go && addgroup -S go
 RUN mkdir /src/ && chown -R go:go /src
